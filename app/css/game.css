@@ -8,7 +8,7 @@ table, td, th {
 }
 
 table {
-  table-layout:fixed;
+  table-layout: fixed;
 }
 
 table {
@@ -19,6 +19,8 @@ td {
   width: 16px;
   height: 15px;
   padding: 4px;
+  text-align: center;
+  vertical-align: middle;
 }
 
 tr:nth-child(even) td:nth-child(odd):not(.selected) {
