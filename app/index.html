@@ -22,7 +22,9 @@
 
   <br />
   <button ng-click="game.newGame()" class="btn btn-primary">New game</button>
-  <button ng-click="game.deal()" class="btn btn-primary">Deal</button>
+  <button ng-click="game.deal()" class="btn btn-primary" data-ng-class="{disabled: game.win || !game.started}">Deal</button>
+
+  <div ng-show="game.win">Congratulations!</div>
 
 </body>
 </html>

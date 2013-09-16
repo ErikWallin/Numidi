@@ -15,9 +15,13 @@ function Game() {
   var self = this;
 
   this.grid = [];
+  this.win = false;
+  this.started = false;
 
   this.newGame = function() {
     this.grid = [];
+    this.started = true;
+    this.win = false;
     
     this.grid[0] = [];
     var lastNumber = -1;
@@ -38,8 +42,6 @@ function Game() {
   }
 
   this.pickTile = function(tile) {
-
-    // tile is valid to pick
     if (tile.solved) {
       if (this.firstPick) {
         this.firstPick.picked = false;
@@ -48,26 +50,24 @@ function Game() {
       return;
     }
 
-    // none is picked before
     if (!this.firstPick) {
       tile.picked = true;
       this.firstPick = tile;
     } else {
-      // one is picked before
       if (this.firstPick === tile) {
-        // tile is already picked
         tile.picked = false;
         this.firstPick = undefined;
       } else if ((this.firstPick.number == tile.number || this.firstPick.number + tile.number == 10)
                && isNeighbours(this.firstPick, tile)) {
-        // match for 10/same is successful
         this.firstPick.picked = false;
         this.firstPick.solved = true;
         tile.picked = false;
         tile.solved = true;
         this.firstPick = undefined;
+        if (isWin()) {
+          this.win = true;
+        }
       } else {
-        // match not successful
         this.firstPick.picked = false;
         tile.picked = true;
         this.firstPick = tile;
@@ -100,7 +100,17 @@ function Game() {
       }
 
       function isDiagonalNeighbours(c1, c2) {
-        return false;
+        if (Math.abs(c1.row - c2.row) != Math.abs(c1.col - c2.col) || c1.row == c2.row) {
+          return false;
+        }
+        var nextCoordinate = {row: c1.row > c2.row ? c1.row - 1 : c1.row + 1, col: c1.col > c2.col ? c1.col - 1 : c1.col + 1}
+        if (nextCoordinate.row == c2.row && nextCoordinate.col == c2.col) {
+          return true;
+        }
+        if (!self.grid[nextCoordinate.row][nextCoordinate.col].solved) {
+            return false;
+          }
+        return isDiagonalNeighbours(nextCoordinate, c2);
       }
 
       return isRowNeighbours(tile1.coordinate, tile2.coordinate)
@@ -108,10 +118,20 @@ function Game() {
             || isColumnNeighbours(tile1.coordinate, tile2.coordinate)
             || isDiagonalNeighbours(tile1.coordinate, tile2.coordinate);
     }
+
+    function isWin() {
+      for (var row = 0; row <= self.lastCoordinate.row; row++) {
+        for (var col = 0; col <= (row == self.lastCoordinate.row ? self.lastCoordinate.col : 19); col++) {
+          if (!self.grid[row][col].solved) {
+            return false;
+          }
+        }
+      }
+    }
   }
 
   var getNextCoordinate = function(coordinate, wrap) {
-    var nextCoordinate = coordinate;
+    var nextCoordinate = {row: coordinate.row, col: coordinate.col};
     nextCoordinate.col += 1;
     if (nextCoordinate.col == 20) {
       nextCoordinate.col = 0;
@@ -122,21 +142,6 @@ function Game() {
     }
     return nextCoordinate;
   }
-
-  /*var getPreviousCoordinate = function(coordinate) {
-    var nextCoordinate = coordinate;
-    nextCoordinate.col -= 1;
-    if (nextCoordinate.col < 0) {
-      nextCoordinate.col = 20;
-      nextCoordinate.row -= 1;
-    }
-    if (wrap && (nextCoordinate.row > self.lastCoordinate.row || (nextCoordinate.row == self.lastCoordinate.row && nextCoordinate.col > seld.lastCoordinate.col))) {
-      nextCoordinate.row = 0;
-    }
-    return nextCoordinate;
-  }*/
-
-  /*0733700088*/
   
   this.deal = function() {
     var oldLastCoordinate = {row: this.lastCoordinate.row, col: this.lastCoordinate.col};
