@@ -1,0 +1,30 @@
+<!doctype html>
+<html data-ng-app="numidiApp">
+<head>
+  <meta charset="utf-8">
+  <title>Numidi</title>
+  <link rel="stylesheet" href="css/game.css" />
+  <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" />
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"></script>
+  <script src="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/game.js"></script>
+</head>
+<body data-ng-controller="GameCtrl">
+
+  <table>
+    <tr data-ng-repeat="row in game.grid">
+      <td data-ng-repeat="tile in row" data-ng-click="game.pickTile(tile)" data-ng-class="{selected: tile.picked, solved: tile.solved}">
+        {{tile.number}}
+      </td>
+    </tr>
+  </table>
+
+  <br />
+  <button ng-click="game.newGame()" class="btn btn-primary">New game</button>
+  <button ng-click="game.deal()" class="btn btn-primary" data-ng-class="{disabled: game.win || !game.started}">Deal</button>
+
+  <div ng-show="game.win">Congratulations!</div>
+
+</body>
+</html>
