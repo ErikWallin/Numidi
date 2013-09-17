@@ -127,6 +127,7 @@ function Game() {
           }
         }
       }
+      return true;
     }
   }
 
