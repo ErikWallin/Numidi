@@ -1,7 +1,7 @@
 'use strict';
 /* App Controllers */
 
-var numidiApp = angular.module('numidiApp', []);
+var numidiApp = angular.module('numidiApp', ['ui.bootstrap']);
 
 numidiApp.factory('game', function() {
   return new Game();

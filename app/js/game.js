@@ -17,6 +17,8 @@ function Game() {
   this.grid = [];
   this.win = false;
   this.started = false;
+  this.width = 20;
+  this.widths = [10, 15, 20, 25, 30];
 
   this.newGame = function() {
     this.grid = [];
@@ -25,7 +27,7 @@ function Game() {
     
     this.grid[0] = [];
     var lastNumber = -1;
-    for (var col = 0; col < 20; col++) {
+    for (var col = 0; col < this.width; col++) {
       do {
         var newNumber = Math.floor(Math.random() * 10)
       } while (lastNumber == newNumber || lastNumber + newNumber == 10);
@@ -33,7 +35,7 @@ function Game() {
       lastNumber = newNumber;
     }
     this.grid[1] = [];
-    for (var col = 0; col < 20; col++) {
+    for (var col = 0; col < this.width; col++) {
       this.grid[1][col] = new Tile(col % 10, 1, col)
     }
     this.lastCoordinate = [];
@@ -134,7 +136,7 @@ function Game() {
   var getNextCoordinate = function(coordinate, wrap) {
     var nextCoordinate = {row: coordinate.row, col: coordinate.col};
     nextCoordinate.col += 1;
-    if (nextCoordinate.col == 20) {
+    if (nextCoordinate.col == self.width) {
       nextCoordinate.col = 0;
       nextCoordinate.row += 1;
     }
@@ -147,7 +149,7 @@ function Game() {
   this.deal = function() {
     var oldLastCoordinate = {row: this.lastCoordinate.row, col: this.lastCoordinate.col};
     for (var row = 0; row <= oldLastCoordinate.row; row++) {
-      for (var col = 0; col <= (row == oldLastCoordinate.row ? oldLastCoordinate.col : 19); col++) {
+      for (var col = 0; col <= (row == oldLastCoordinate.row ? oldLastCoordinate.col : self.width - 1); col++) {
         if (!this.grid[row][col].solved) {
           this.lastCoordinate = getNextCoordinate(this.lastCoordinate, false);
           if (this.lastCoordinate.col == 0) {
@@ -157,6 +159,10 @@ function Game() {
         }
       }
     }
+  }
+
+  this.setWidth = function(width) {
+    self.width = width;
   }
 }
 
