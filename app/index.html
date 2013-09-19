@@ -10,8 +10,9 @@
   <script src="js/app.js"></script>
   <script src="js/game.js"></script>
 </head>
-<body data-ng-controller="GameCtrl">
 
+<body data-ng-controller="GameCtrl">
+<div class="container">
   <tabset>
     <tab heading="Play">
       <table>
@@ -21,29 +22,53 @@
           </td>
         </tr>
       </table>
-      <br />
+      <br data-ng-show="game.grid.length > 0" />
+      <p data-ng-show="game.grid.length == 0">Welcome!</p>
       <button data-ng-click="game.newGame()" class="btn btn-primary">New game</button>
       <button data-ng-click="game.deal()" class="btn btn-primary" data-ng-class="{disabled: game.win || !game.started}">Deal</button>
       <div data-ng-show="game.win">Congratulations!</div>
     </tab>
 
     <tab heading="Settings">
-      <div data-ng-show="game.started">A change to the settings will remove current game.</div>
-      <form class="form-horizontal">  
+      <form class="form-horizontal">
         <fieldset>
-          <div class="control-group">  
-            <label class="control-label" for="select-width">Width</label>  
+          <div class="control-group">
+            <label class="control-label" for="select-width">Width</label>
             <div class="controls">
               <select id="select-width" data-ng-model="game.width" data-ng-options="width for width in game.widths"></select>
+              <p data-ng-show="game.started" class="help-block">A change will reset current game</p>
             </div>
           </div>
         </fieldset>
       </form>
     </tab>
+
     <tab heading="Instructions">
-      The goal is to remove all numbers in table. You can do it by matching adjacent numbers in horizontal, vertical and diagonal. They will be removed if they are the same number or if the sum is 10. When no more moves are possible, you should press the deal button to continue removing the numbers.
+      <h3>Goal</h3>
+      <p>The goal is to remove all numbers in the table.</p>
+      <h3>Gameplay</h3>
+      <p>Remove connected numbers with same value or a sum of 10. Connected numbers means that the two numbers are next to each other - horizontal, vertical or diagonal. The rows wraps, which means that the last number in a row is connected to the first number in the next row. The last row is also wrapped with the first row.</p>
+      <p>When no more moves are possible, press the deal button to continue removing the numbers. All previous numbers are dealt in the same order as on the table, but without the space.</p>
+      <p>Pro tip: Numbers of a value that are removed completely from the board never come back.</p>
+      <h3>Score</h3>
+      <p>The number of used tiles are the score, less is better.</p>
+    </tab>
+
+    <tab heading="About">
+      <h3>Purpose</h3>
+      <p>Numidi (Number idiot) is written as an attempt to save my wife from solving the puzzle by pen and paper.</p>
+      <h3>Used technology</h3>
+      <p>
+        <ul>
+          <li><a href="http://angularjs.org/" target="_blank">AngularJS</a></li>
+          <li><a href="http://angular-ui.github.io/bootstrap/" target="_blank">AngularUI's UI Bootstrap</a></li>
+          <li><a href="http://getbootstrap.com/2.3.2/ target="_blank"">Twitter Bootstrap</a></li>
+        </ul>
+      </p>
+      <h3>Developer</h3>
+      <p>Erik Wallin, wallin_erik (at) yahoo.com</p>
     </tab>
   </tabset>
-
+</div>
 </body>
 </html>
