@@ -35,7 +35,7 @@
           <div class="control-group">
             <label class="control-label" for="select-width">Width</label>
             <div class="controls">
-              <select id="select-width" data-ng-model="game.width" data-ng-options="width for width in game.widths"></select>
+              <select id="select-width" data-ng-model="game.width" data-ng-options="width for width in game.widths" data-ng-change="game.resetGame()"></select>
               <p data-ng-show="game.started" class="help-block">A change will reset current game</p>
             </div>
           </div>
