@@ -14,18 +14,20 @@ function Game() {
 
   var self = this;
 
-  this.grid = [];
-  this.win = false;
-  this.started = false;
   this.width = 20;
   this.widths = [10, 15, 20, 25, 30];
 
+  this.resetGame = function() {
+    self.started = false;
+    self.win = false;
+    self.grid = [];
+  }();
+
   this.newGame = function() {
-    this.grid = [];
+    this.resetGame();
     this.started = true;
-    this.win = false;
-    
-    this.grid[0] = [];
+    self.grid[0] = [];
+
     var lastNumber = -1;
     for (var col = 0; col < this.width; col++) {
       do {
