@@ -21,7 +21,8 @@ function Game() {
     self.started = false;
     self.win = false;
     self.grid = [];
-  }();
+  }
+  this.resetGame();
 
   this.newGame = function() {
     this.resetGame();
