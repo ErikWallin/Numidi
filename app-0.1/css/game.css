@@ -1,0 +1,63 @@
+/* html5 semantics tags */
+article, aside, figure, footer, header, hgroup, menu, nav, section {
+  display: block;
+}
+
+table, td, th {
+  border: 1px solid black;
+}
+
+table {
+  table-layout: fixed;
+}
+
+table {
+  border-collapse: collapse;
+}
+
+td {
+  width: 16px;
+  height: 15px;
+  padding: 4px;
+  text-align: center;
+  vertical-align: middle;
+}
+
+tr:nth-child(even) td:nth-child(odd):not(.selected) {
+  background-color: grey;
+  color: white;
+}
+tr:nth-child(odd) td:nth-child(even):not(.selected) {
+  background-color: grey;
+  color: white;
+}
+tr:nth-child(odd) td:nth-child(odd):not(.selected) {
+  background-color: white;
+  color: black;
+}
+tr:nth-child(even) td:nth-child(even):not(.selected) {
+  background-color: white;
+  color: black;
+}
+
+td.selected {
+  background-color: yellow;
+  color: black;
+}
+
+td:not(.solved) {
+  cursor: pointer;
+}
+
+tr:nth-child(even) td:nth-child(odd).solved {
+  color: gray;
+}
+tr:nth-child(odd) td:nth-child(even).solved {
+  color: gray;
+}
+tr:nth-child(odd) td:nth-child(odd).solved {
+  color: white;
+}
+tr:nth-child(even) td:nth-child(even).solved {
+  color: white;
+}
