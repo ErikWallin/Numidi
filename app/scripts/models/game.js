@@ -1,5 +1,4 @@
 'use strict';
-/* Numidi Models and Business Logic */
 
 function Tile(number, row, col) {
   this.number = number;

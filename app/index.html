@@ -1,72 +1,55 @@
 <!doctype html>
-<html data-ng-app="numidiApp">
-<head>
-  <meta charset="utf-8">
-  <title>Numidi</title>
-  <link rel="stylesheet" href="css/game.css" />
-  <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" />
-  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.min.js"></script>
-  <script src="http://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.6.0.js"></script>
-  <script src="js/app.js"></script>
-  <script src="js/game.js"></script>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="bower_components/angular-ui/build/angular-ui.css">
+
+    <!-- build:css(.tmp) styles/main.css -->
+    <link rel="stylesheet" href="styles/main.css">
+    <!-- endbuild -->
 </head>
+  <body data-ng-app="NumidiApp">
+    <!--[if lt IE 7]>
+      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
 
-<body data-ng-controller="GameCtrl">
-<div class="container">
-  <tabset>
-    <tab heading="Play">
-      <table>
-        <tr data-ng-repeat="row in game.grid">
-          <td data-ng-repeat="tile in row" data-ng-click="game.pickTile(tile)" data-ng-class="{selected: tile.picked, solved: tile.solved}">
-            {{tile.number}}
-          </td>
-        </tr>
-      </table>
-      <br data-ng-show="game.grid.length > 0" />
-      <p data-ng-show="game.grid.length == 0">Welcome!</p>
-      <button data-ng-click="game.newGame()" class="btn btn-primary">New game</button>
-      <button data-ng-click="game.deal()" class="btn btn-primary" data-ng-class="{disabled: game.win || !game.started}">Deal</button>
-      <div data-ng-show="game.win">Congratulations!</div>
-    </tab>
+    <!--[if lt IE 9]>
+      <script src="bower_components/es5-shim/es5-shim.js"></script>
+      <script src="bower_components/json3/lib/json3.min.js"></script>
+    <![endif]-->
 
-    <tab heading="Settings">
-      <form class="form-horizontal">
-        <fieldset>
-          <div class="control-group">
-            <label class="control-label" for="select-width">Width</label>
-            <div class="controls">
-              <select id="select-width" data-ng-model="game.width" data-ng-options="width for width in game.widths" data-ng-change="game.resetGame()"></select>
-              <p data-ng-show="game.started" class="help-block">A change will reset current game</p>
-            </div>
-          </div>
-        </fieldset>
-      </form>
-    </tab>
+    <!-- Add your site or application content here -->
+    <div class="container" data-ng-view=""></div>
 
-    <tab heading="Instructions">
-      <h3>Goal</h3>
-      <p>The goal is to remove all numbers in the table.</p>
-      <h3>Gameplay</h3>
-      <p>Remove connected numbers with same value or a sum of 10. Connected numbers means that the two numbers are next to each other - horizontal, vertical or diagonal. The rows wraps, which means that the last number in a row is connected to the first number in the next row. The last row is also wrapped with the first row.</p>
-      <p>When no more moves are possible, press the deal button to continue removing the numbers. All previous numbers are dealt in the same order as on the table, but without the space.</p>
-      <p>Pro tip: Numbers of a value that are removed completely from the board never come back.</p>
-      <h3>Score</h3>
-      <p>The number of used tiles are the score, less is better.</p>
-    </tab>
+    <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
+    <!--<script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-    <tab heading="About">
-      <h3>Purpose</h3>
-      <p>Numidi (Number idiot) is written as an attempt to save my wife from solving the puzzle by pen and paper.</p>
-      <h3>Used technology</h3>
-      <ul>
-        <li><a href="http://angularjs.org/" target="_blank">AngularJS</a></li>
-        <li><a href="http://angular-ui.github.io/bootstrap/" target="_blank">AngularUI's UI Bootstrap</a></li>
-        <li><a href="http://getbootstrap.com/2.3.2/" target="_blank">Twitter Bootstrap</a></li>
-      </ul>
-      <h3>Developer</h3>
-      <p>Erik Wallin, wallin_erik (at) yahoo.com</p>
-    </tab>
-  </tabset>
-</div>
+      ga('create', 'UA-XXXXX-X');
+      ga('send', 'pageview');
+    </script-->
+
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/angular-ui/build/angular-ui.js"></script>
+    <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+
+    <!-- build:js({.tmp,app}) scripts/scripts.js -->
+    <script src="scripts/models/game.js"></script>
+    <script src="scripts/modules/app.js"></script>
+    <script src="scripts/controllers/main.js"></script>
+    <!-- endbuild -->
 </body>
 </html>
