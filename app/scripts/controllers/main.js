@@ -1,6 +1,6 @@
 'use strict';
 
 angular.module('NumidiApp')
-  .controller('MainCtrl', function ($scope, game) {
-  	$scope.game = game;
+  .controller('MainCtrl', function ($scope, game, localStorageService) {
+    $scope.game = game;
   });

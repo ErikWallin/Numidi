@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('NumidiApp', ['ui', 'ui.bootstrap'])
+angular.module('NumidiApp', ['ui', 'ui.bootstrap', 'LocalStorageModule'])
   .config(function ($routeProvider) {
     $routeProvider
       .when('/', {
