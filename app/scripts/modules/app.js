@@ -5,12 +5,9 @@ angular.module('NumidiApp', ['ui', 'ui.bootstrap', 'LocalStorageModule'])
     $routeProvider
       .when('/', {
         templateUrl: 'views/main.html',
-        controller: 'MainCtrl'
+        controller: 'BoardController'
       })
       .otherwise({
         redirectTo: '/'
       });
-  })
-  .factory('game', function() {
-    return new Game();
   });

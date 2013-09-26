@@ -8,4 +8,3 @@ Play
 * Release 0.1: <http://erikwallin.github.io/Numidi/app-0.1>
 * Release 0.2: <http://erikwallin.github.io/Numidi/app-0.2>
 * Development: <http://erikwallin.github.io/Numidi/app-SNAPSHOT>
-

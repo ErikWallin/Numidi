@@ -1,17 +1,17 @@
 <tabset>
   <tab heading="Play">
     <table>
-      <tr data-ng-repeat="row in game.grid">
-        <td data-ng-repeat="tile in row" data-ng-click="game.pickTile(tile)" data-ng-class="{selected: tile.picked, solved: tile.solved}">
+      <tr data-ng-repeat="row in grid">
+        <td data-ng-repeat="tile in row" data-ng-click="pickTile(tile)" data-ng-class="{selected: tile.picked, solved: tile.solved}">
           {{tile.number}}
         </td>
       </tr>
     </table>
-    <br data-ng-show="game.grid.length > 0" />
-    <p data-ng-show="game.grid.length == 0">Welcome!</p>
-    <button data-ng-click="game.newGame()" class="btn btn-primary">New game</button>
-    <button data-ng-click="game.deal()" class="btn btn-primary" data-ng-class="{disabled: game.win || !game.started}">Deal</button>
-    <div data-ng-show="game.win">Congratulations!</div>
+    <br data-ng-show="grid.length > 0" />
+    <p data-ng-show="grid.length == 0">Welcome!</p>
+    <button data-ng-click="newGame()" class="btn btn-primary">New game</button>
+    <button data-ng-click="deal()" class="btn btn-primary" data-ng-class="{disabled: win || !started}">Deal</button>
+    <div data-ng-show="win">Congratulations!</div>
   </tab>
 
   <tab heading="Settings">
@@ -20,8 +20,8 @@
         <div class="control-group">
           <label class="control-label" for="select-width">Width</label>
           <div class="controls">
-            <select id="select-width" data-ng-model="game.width" data-ng-options="width for width in game.widths" data-ng-change="game.resetGame()"></select>
-            <p data-ng-show="game.started" class="help-block">A change will reset current game</p>
+            <select id="select-width" data-ng-model="width" data-ng-options="width for width in widths" data-ng-change="resetGame()"></select>
+            <p data-ng-show="started" class="help-block">A change will reset current game</p>
           </div>
         </div>
       </fieldset>
