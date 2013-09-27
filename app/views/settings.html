@@ -1,0 +1,11 @@
+<form class="form-horizontal">
+  <fieldset>
+    <div class="control-group">
+      <label class="control-label" for="select-width">Width</label>
+      <div class="controls">
+        <select id="select-width" data-ng-model="settings.width" data-ng-options="width for width in settings.widths"></select>
+        <p data-ng-show="started" class="help-block">A change will reset current game</p>
+      </div>
+    </div>
+  </fieldset>
+</form>

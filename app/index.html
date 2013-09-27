@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="bower_components/angular-ui/build/angular-ui.css">
 
     <!-- build:css(.tmp) styles/main.css -->
-    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="css/main.css">
     <!-- endbuild -->
 </head>
   <body data-ng-app="NumidiApp">
@@ -29,7 +29,22 @@
     <![endif]-->
 
     <!-- Add your site or application content here -->
-    <div class="container" data-ng-view=""></div>
+    <div class="container">
+      <div class="navbar" ng-controller="NavbarController">
+        <div class="navbar-inner">
+          <a class="brand" href="#/">Numidi</a>
+          <ul class="nav">
+            <li data-ng-class="{active: routeIs('/board')}"><a href="#/board">Play</a></li>
+            <li data-ng-class="{active: routeIs('/settings')}"><a href="#/settings">Settings</a></li>
+            <li data-ng-class="{active: routeIs('/rules')}"><a href="#/rules">Rules</a></li>
+          </ul>
+          <ul class="nav pull-right">
+            <li data-ng-class="{active: routeIs('/about')}"><a href="#/about">About</a></li>
+          </ul>
+        </div>
+      </div>
+      <div data-ng-view=""></div>
+    </div>
 
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
     <!--<script>
@@ -47,9 +62,13 @@
     <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
     <script src="bower_components/angular-local-storage/angular-local-storage.js"></script>
 
-    <!-- build:js({.tmp,app}) scripts/scripts.js -->
-    <script src="scripts/modules/app.js"></script>
-    <script src="scripts/controllers/main.js"></script>
+    <!-- build:js({.tmp,app}) js/scripts.js -->
+    <script src="js/modules/NumidiApp.js"></script>
+    <script src="js/controllers/NavbarController.js"></script>
+    <script src="js/controllers/BoardController.js"></script>
+    <script src="js/services/BoardService.js"></script>
+    <script src="js/controllers/SettingsController.js"></script>
+    <script src="js/services/SettingsService.js"></script>
     <!-- endbuild -->
 </body>
 </html>

@@ -15,8 +15,8 @@ module.exports = function(config) {
       'app/bower_components/angular-mocks/angular-mocks.js',
       'app/bower_components/angular-ui/build/angular-ui.js',
       'app/bower_components/angular-bootstrap/ui-bootstrap-tpls.js',
-      'app/scripts/**/app.js', // Bug?? I need this line here to include app.js
-      'app/scripts/**/*.js',
+      'app/js/**/app.js', // Bug?? I need this line here to include app.js
+      'app/js/**/*.js',
       'test/spec/**/*.js'
     ],
 
