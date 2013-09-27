@@ -9,5 +9,5 @@
 <br data-ng-show="board.grid.length > 0" />
 <p data-ng-show="board.grid.length == 0">Welcome!</p>
 <button data-ng-click="newGame()" class="btn btn-primary">New game</button>
-<button data-ng-click="deal()" class="btn btn-primary" data-ng-class="{disabled: win || !started}">Deal</button>
+<button data-ng-click="deal()" class="btn btn-primary" data-ng-class="{disabled: board.win || !board.started}">Deal</button>
 <div data-ng-show="board.win">Congratulations!</div>

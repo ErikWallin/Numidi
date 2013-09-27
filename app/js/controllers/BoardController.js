@@ -14,14 +14,8 @@ angular.module('NumidiApp').controller('BoardController', function ($scope, sett
     this.solved = false;
   }
 
-  $scope.resetGame = function() {
-    $scope.board.started = false;
-    $scope.board.win = false;
-    $scope.board.grid = [];
-  }
-
   $scope.newGame = function() {
-    $scope.resetGame();
+    $scope.board.resetGame();
     $scope.board.started = true;
     $scope.board.grid[0] = [];
 
@@ -39,7 +33,7 @@ angular.module('NumidiApp').controller('BoardController', function ($scope, sett
     }
     $scope.board.lastCoordinate = [];
     $scope.board.lastCoordinate.row = 1;
-    $scope.board.lastCoordinate.col = 19;
+    $scope.board.lastCoordinate.col = $scope.settings.width - 1;
   }
 
   $scope.pickTile = function(tile) {
@@ -122,7 +116,7 @@ angular.module('NumidiApp').controller('BoardController', function ($scope, sett
 
     function isWin() {
       for (var row = 0; row <= $scope.board.lastCoordinate.row; row++) {
-        for (var col = 0; col <= (row == $scope.board.lastCoordinate.row ? $scope.board.lastCoordinate.col : 19); col++) {
+        for (var col = 0; col <= (row == $scope.board.lastCoordinate.row ? $scope.board.lastCoordinate.col : $scope.settings.width - 1); col++) {
           if (!$scope.board.grid[row][col].solved) {
             return false;
           }
