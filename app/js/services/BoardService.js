@@ -1,13 +1,15 @@
 'use strict';
 
-angular.module('NumidiApp').factory('boardService', function(settingsService) {
+angular.module('NumidiApp').service('boardService', function(settingsService) {
 
-  var settings = settingsService;
-  var started = false;
-  var win = false;
-  var grid = [];
-  var lastCoordinate = [];
-  var firstPick = undefined;
+  var self = this;
+
+  self.settings = settingsService;
+  self.started = false;
+  self.win = false;
+  self.grid = [];
+  self.lastCoordinate = [];
+  self.firstPick = undefined;
 
   function Tile(number, row, col) {
     this.number = number;
@@ -18,169 +20,149 @@ angular.module('NumidiApp').factory('boardService', function(settingsService) {
     this.solved = false;
   }
 
-  var resetGame = function() {
-    this.started = false;
-    this.win = false;
-    this.grid = [];
-    this.lastCoordinate = [];
-    this.firstPick = undefined;
+  self.resetGame = function() {
+    self.started = false;
+    self.win = false;
+    self.grid = [];
+    self.lastCoordinate = [];
+    self.firstPick = undefined;
   }
 
-  var newGame = function() {
-    this.resetGame();
-    this.started = true;
-    this.grid[0] = [];
+  self.newGame = function() {
+    self.resetGame();
+    self.started = true;
+    self.grid[0] = [];
 
     var lastNumber = -1;
-    for (var col = 0; col < this.settings.width; col++) {
+    for (var col = 0; col < self.settings.width; col++) {
       do {
         var newNumber = Math.floor(Math.random() * 10)
       } while (lastNumber == newNumber || lastNumber + newNumber == 10);
-      this.grid[0][col] = new Tile(newNumber, 0, col);
+      self.grid[0][col] = new Tile(newNumber, 0, col);
       lastNumber = newNumber;
     }
-    this.grid[1] = [];
-    for (var col = 0; col < this.settings.width; col++) {
-      this.grid[1][col] = new Tile(col % 10, 1, col)
+    self.grid[1] = [];
+    for (var col = 0; col < self.settings.width; col++) {
+      self.grid[1][col] = new Tile(col % 10, 1, col)
     }
-    this.lastCoordinate = [];
-    this.lastCoordinate.row = 1;
-    this.lastCoordinate.col = this.settings.width - 1;
+    self.lastCoordinate = [];
+    self.lastCoordinate.row = 1;
+    self.lastCoordinate.col = self.settings.width - 1;
   }
 
-  var pickTile = function(tile) {
+  self.pickTile = function(tile) {
     if (tile.solved) {
-      if (this.firstPick) {
-        this.firstPick.picked = false;
-        this.firstPick = undefined;
+      if (self.firstPick) {
+        self.firstPick.picked = false;
+        self.firstPick = undefined;
       }
       return;
     }
 
-    if (!this.firstPick) {
+    if (!self.firstPick) {
       tile.picked = true;
-      this.firstPick = tile;
+      self.firstPick = tile;
     } else {
-      if (this.firstPick === tile) {
+      if (self.firstPick === tile) {
         tile.picked = false;
-        this.firstPick = undefined;
-      } else if ((this.firstPick.number == tile.number || this.firstPick.number + tile.number == 10)
-       && this.isNeighbours(this.firstPick, tile)) {
-        this.firstPick.picked = false;
-        this.firstPick.solved = true;
+        self.firstPick = undefined;
+      } else if ((self.firstPick.number == tile.number || self.firstPick.number + tile.number == 10)
+       && isNeighbours(self.firstPick, tile)) {
+        self.firstPick.picked = false;
+        self.firstPick.solved = true;
         tile.picked = false;
         tile.solved = true;
-        this.firstPick = undefined;
-        this.win = this.isWin();
+        self.firstPick = undefined;
+        self.win = isWin();
       } else {
-        this.firstPick.picked = false;
+        self.firstPick.picked = false;
         tile.picked = true;
-        this.firstPick = tile;
+        self.firstPick = tile;
       }
     }
-  }
 
-  var isNeighbours = function(tile1, tile2) {
-    return this.isRowNeighbours(tile1.coordinate, tile2.coordinate) ||
-           this.isRowNeighbours(tile2.coordinate, tile1.coordinate) ||
-           this.isColumnNeighbours(tile1.coordinate, tile2.coordinate) ||
-           this.isDiagonalNeighbours(tile1.coordinate, tile2.coordinate);
-  }
-
-  var isRowNeighbours = function(c1, c2) {
-    var nextCoordinate = this.getNextCoordinate(c1, true);
-    if (nextCoordinate.row == c2.row && nextCoordinate.col == c2.col) {
+    function isWin() {
+      for (var row = 0; row <= self.lastCoordinate.row; row++) {
+        for (var col = 0; col <= (row == self.lastCoordinate.row ? self.lastCoordinate.col : self.settings.width - 1); col++) {
+          if (!self.grid[row][col].solved) {
+            return false;
+          }
+        }
+      }
       return true;
     }
-    if (this.grid[nextCoordinate.row][nextCoordinate.col].solved == false) {
-      return false;
-    }
-    return this.isRowNeighbours(nextCoordinate, c2);
-  }
 
-  var isColumnNeighbours = function(c1, c2) {
-    if (c1.col != c2.col) {
-      return false;
+    function isNeighbours(tile1, tile2) {
+      return isRowNeighbours(tile1.coordinate, tile2.coordinate) ||
+             isRowNeighbours(tile2.coordinate, tile1.coordinate) ||
+             isColumnNeighbours(tile1.coordinate, tile2.coordinate) ||
+             isDiagonalNeighbours(tile1.coordinate, tile2.coordinate);
     }
-    for (var r = Math.min(c1.row, c2.row) + 1; r < Math.max(c1.row, c2.row); r++) {
-      if (!this.grid[r][c1.col].solved) {
+
+    function isRowNeighbours(c1, c2) {
+      var nextCoordinate = getNextCoordinate(c1, true);
+      if (nextCoordinate.row == c2.row && nextCoordinate.col == c2.col) {
+        return true;
+      }
+      if (self.grid[nextCoordinate.row][nextCoordinate.col].solved == false) {
         return false;
       }
+      return isRowNeighbours(nextCoordinate, c2);
     }
-    return true;
-  }
 
-  var isDiagonalNeighbours = function(c1, c2) {
-    if (Math.abs(c1.row - c2.row) != Math.abs(c1.col - c2.col) || c1.row == c2.row) {
-      return false;
-    }
-    var nextCoordinate = {row: c1.row > c2.row ? c1.row - 1 : c1.row + 1, col: c1.col > c2.col ? c1.col - 1 : c1.col + 1}
-    if (nextCoordinate.row == c2.row && nextCoordinate.col == c2.col) {
-      return true;
-    }
-    if (!this.grid[nextCoordinate.row][nextCoordinate.col].solved) {
-      return false;
-    }
-    return this.isDiagonalNeighbours(nextCoordinate, c2);
-  }
-
-  var isWin = function() {
-    for (var row = 0; row <= this.lastCoordinate.row; row++) {
-      for (var col = 0; col <= (row == this.lastCoordinate.row ? this.lastCoordinate.col : this.settings.width - 1); col++) {
-        if (!this.grid[row][col].solved) {
+    function isColumnNeighbours(c1, c2) {
+      if (c1.col != c2.col) {
+        return false;
+      }
+      for (var r = Math.min(c1.row, c2.row) + 1; r < Math.max(c1.row, c2.row); r++) {
+        if (!self.grid[r][c1.col].solved) {
           return false;
         }
       }
+      return true;
     }
-    return true;
+
+    function isDiagonalNeighbours(c1, c2) {
+      if (Math.abs(c1.row - c2.row) != Math.abs(c1.col - c2.col) || c1.row == c2.row) {
+        return false;
+      }
+      var nextCoordinate = {row: c1.row > c2.row ? c1.row - 1 : c1.row + 1, col: c1.col > c2.col ? c1.col - 1 : c1.col + 1}
+      if (nextCoordinate.row == c2.row && nextCoordinate.col == c2.col) {
+        return true;
+      }
+      if (!self.grid[nextCoordinate.row][nextCoordinate.col].solved) {
+        return false;
+      }
+      return isDiagonalNeighbours(nextCoordinate, c2);
+    }
   }
 
-  var getNextCoordinate = function(coordinate, wrap) {
+  function getNextCoordinate(coordinate, wrap) {
     var nextCoordinate = {row: coordinate.row, col: coordinate.col};
     nextCoordinate.col += 1;
-    if (nextCoordinate.col == this.settings.width) {
+    if (nextCoordinate.col == self.settings.width) {
       nextCoordinate.col = 0;
       nextCoordinate.row += 1;
     }
-    if (wrap && (nextCoordinate.row > this.lastCoordinate.row || (nextCoordinate.row == this.lastCoordinate.row && nextCoordinate.col > this.lastCoordinate.col))) {
+    if (wrap && (nextCoordinate.row > self.lastCoordinate.row || (nextCoordinate.row == self.lastCoordinate.row && nextCoordinate.col > self.lastCoordinate.col))) {
       nextCoordinate.row = 0;
       nextCoordinate.col = 0;
     }
     return nextCoordinate;
   }
   
-  var deal = function() {
-    var oldLastCoordinate = {row: this.lastCoordinate.row, col: this.lastCoordinate.col};
+  self.deal = function() {
+    var oldLastCoordinate = {row: self.lastCoordinate.row, col: self.lastCoordinate.col};
     for (var row = 0; row <= oldLastCoordinate.row; row++) {
-      for (var col = 0; col <= (row == oldLastCoordinate.row ? oldLastCoordinate.col : this.settings.width - 1); col++) {
-        if (!this.grid[row][col].solved) {
-          this.lastCoordinate = this.getNextCoordinate(this.lastCoordinate, false);
-          if (this.lastCoordinate.col == 0) {
-            this.grid[this.lastCoordinate.row] = [];
+      for (var col = 0; col <= (row == oldLastCoordinate.row ? oldLastCoordinate.col : self.settings.width - 1); col++) {
+        if (!self.grid[row][col].solved) {
+          self.lastCoordinate = getNextCoordinate(self.lastCoordinate, false);
+          if (self.lastCoordinate.col == 0) {
+            self.grid[self.lastCoordinate.row] = [];
           }
-          this.grid[this.lastCoordinate.row][this.lastCoordinate.col] = new Tile(this.grid[row][col].number, this.lastCoordinate.row, this.lastCoordinate.col);
+          self.grid[self.lastCoordinate.row][self.lastCoordinate.col] = new Tile(self.grid[row][col].number, self.lastCoordinate.row, self.lastCoordinate.col);
         }
       }
     }
   }
-
-  return {
-    started: started,
-    win: win,
-    grid: grid,
-    lastCoordinate: lastCoordinate,
-    firstPick: firstPick,
-
-    settings: settings,
-    resetGame: resetGame,
-    newGame: newGame,
-    pickTile: pickTile,
-    isNeighbours: isNeighbours,
-    isRowNeighbours: isRowNeighbours,
-    isColumnNeighbours: isColumnNeighbours,
-    isDiagonalNeighbours: isDiagonalNeighbours,
-    isWin: isWin,
-    getNextCoordinate: getNextCoordinate,
-    deal: deal
-  };
 });
