@@ -14,6 +14,10 @@ angular.module('NumidiApp', ['ui', 'ui.bootstrap', 'LocalStorageModule'])
         controller: 'SettingsController',
         templateUrl: 'views/settings.html'
       }).
+      when('/highscore', {
+        controller: 'HighScoreController',
+        templateUrl: 'views/highscore.html'
+      }).
       when('/rules', {
         templateUrl: 'views/rules.html'
       }).

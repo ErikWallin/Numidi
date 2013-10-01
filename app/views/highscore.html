@@ -1,0 +1,19 @@
+<div data-ng-repeat="(key, values) in highScore.scores">
+  <table class="table table-hover table-nonfluid">
+    <caption>Width: {{key}}</caption>
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Name</th>
+        <th>Result</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr data-ng-repeat="value in values">
+        <th>1</th>
+        <th>Erik</th>
+        <th>{{value}}</th>
+      </tr>
+    </tbody>
+  </table>
+</div>

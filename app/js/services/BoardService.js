@@ -1,10 +1,11 @@
 'use strict';
 
-angular.module('NumidiApp').service('boardService', function(settingsService) {
+angular.module('NumidiApp').service('boardService', function(settingsService, highScoreService) {
 
   var self = this;
 
   self.settings = settingsService;
+  self.highscore = highScoreService;
   self.started = false;
   self.win = false;
   self.grid = [];
@@ -73,7 +74,10 @@ angular.module('NumidiApp').service('boardService', function(settingsService) {
         tile.picked = false;
         tile.solved = true;
         self.firstPick = undefined;
-        self.win = isWin();
+        if (isWin()) {
+          self.win = true;
+          highScore.addScore(settings.width, (self.lastCoordinate.row + 1) * settings.width + self.lastCoordinate.col + 1);
+        }
       } else {
         self.firstPick.picked = false;
         tile.picked = true;

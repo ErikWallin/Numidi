@@ -1,0 +1,41 @@
+@mixin diagonal1-colors
+  background-color: grey
+  color: white
+  &.solved
+    color: grey
+
+@mixin diagonal2-colors
+  background-color: white
+  color: black
+  &.solved
+    color: white
+
+@mixin grid
+  border: 1px solid black
+
+table.numidi-grid
+  @include grid
+  td
+    @include grid
+    width: 16px
+    height: 15px
+    padding: 4px
+    text-align: center
+    vertical-align: middle
+    &.selected
+      background-color: yellow
+      color: black
+    &:not(.solved)
+      cursor: pointer
+  tr:nth-child(even)
+    td:nth-child(odd):not(.selected)
+      @include diagonal1-colors
+  tr:nth-child(odd)
+    td:nth-child(even):not(.selected)
+      @include diagonal1-colors
+  tr:nth-child(odd)
+    td:nth-child(odd):not(.selected)
+      @include diagonal2-colors
+  tr:nth-child(even)
+    td:nth-child(even):not(.selected)
+      @include diagonal2-colors

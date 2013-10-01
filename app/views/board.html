@@ -1,4 +1,4 @@
-<table>
+<table class="numidi-grid">
   <tr data-ng-repeat="row in board.grid">
     <td data-ng-repeat="tile in row" data-ng-click="board.pickTile(tile)" data-ng-class="{selected: tile.picked, solved: tile.solved}">
       {{tile.number}}

@@ -14,7 +14,8 @@
     <link rel="stylesheet" href="bower_components/angular-ui/build/angular-ui.css">
 
     <!-- build:css(.tmp) css/main.css -->
-    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/numidi-grid.css">
     <!-- endbuild -->
 </head>
   <body data-ng-app="NumidiApp">
@@ -35,6 +36,7 @@
           <ul class="nav">
             <li data-ng-class="{active: routeIs('/board')}"><a href="#/board">Play</a></li>
             <li data-ng-class="{active: routeIs('/settings')}"><a href="#/settings">Settings</a></li>
+            <li data-ng-class="{active: routeIs('/highscore')}"><a href="#/highscore">Highscore</a></li>
             <li data-ng-class="{active: routeIs('/rules')}"><a href="#/rules">Rules</a></li>
           </ul>
           <ul class="nav pull-right">
@@ -68,6 +70,8 @@
     <script src="js/services/BoardService.js"></script>
     <script src="js/controllers/SettingsController.js"></script>
     <script src="js/services/SettingsService.js"></script>
+    <script src="js/controllers/HighScoreController.js"></script>
+    <script src="js/services/HighScoreService.js"></script>
     <!-- endbuild -->
 </body>
 </html>
