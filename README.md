@@ -7,4 +7,4 @@ Play
 ----
 * Release 0.1 (Plain AngularJS/Bootstrap project): <http://erikwallin.github.io/Numidi/app-0.1>
 * Release 0.2 (Yeoman, Bower, Grunt added): <http://erikwallin.github.io/Numidi/app-0.2>
-* Development (Refactor code to more controllers/services): <http://erikwallin.github.io/Numidi/app-SNAPSHOT>
+* Development (Refactor code to more controllers/services, Highscore feature): <http://erikwallin.github.io/Numidi/app-SNAPSHOT>
