@@ -4,10 +4,9 @@
       {{tile.number}}
     </td>
   </tr>
-  
 </table>
-<br data-ng-show="board.grid.length > 0" />
-<p data-ng-show="board.grid.length == 0">Welcome!</p>
+
+<br/>
 <button data-ng-click="board.newGame()" class="btn btn-primary">New game</button>
 <button data-ng-click="board.deal()" class="btn btn-primary" data-ng-class="{disabled: board.win || !board.started}">Deal</button>
 <div data-ng-show="board.win">Congratulations!</div>

@@ -5,7 +5,7 @@ angular.module('NumidiApp').service('boardService', function(settingsService, hi
   var self = this;
 
   self.settings = settingsService;
-  self.highscore = highScoreService;
+  self.highScore = highScoreService;
   self.started = false;
   self.win = false;
   self.grid = [];
@@ -57,10 +57,7 @@ angular.module('NumidiApp').service('boardService', function(settingsService, hi
         self.firstPick.picked = false;
         self.firstPick = undefined;
       }
-      return;
-    }
-
-    if (!self.firstPick) {
+    } else if (!self.firstPick) {
       tile.picked = true;
       self.firstPick = tile;
     } else {
@@ -76,7 +73,7 @@ angular.module('NumidiApp').service('boardService', function(settingsService, hi
         self.firstPick = undefined;
         if (isWin()) {
           self.win = true;
-          highScore.addScore(settings.width, (self.lastCoordinate.row + 1) * settings.width + self.lastCoordinate.col + 1);
+          self.highScore.addScore(self.settings.width, self.lastCoordinate.row * self.settings.width + self.lastCoordinate.col + 1);
         }
       } else {
         self.firstPick.picked = false;
@@ -108,7 +105,7 @@ angular.module('NumidiApp').service('boardService', function(settingsService, hi
       if (nextCoordinate.row == c2.row && nextCoordinate.col == c2.col) {
         return true;
       }
-      if (self.grid[nextCoordinate.row][nextCoordinate.col].solved == false) {
+      if (!self.grid[nextCoordinate.row][nextCoordinate.col].solved) {
         return false;
       }
       return isRowNeighbours(nextCoordinate, c2);

@@ -1,19 +1,19 @@
-<div data-ng-repeat="(key, values) in highScore.scores">
-  <table class="table table-hover table-nonfluid">
-    <caption>Width: {{key}}</caption>
-    <thead>
-      <tr>
-        <th>#</th>
-        <th>Name</th>
-        <th>Result</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr data-ng-repeat="value in values">
-        <th>1</th>
-        <th>Erik</th>
-        <th>{{value}}</th>
-      </tr>
-    </tbody>
-  </table>
-</div>
+<table data-ng-show="highScore.hasScore()" class="table table-hover table-nonfluid">
+  <caption>Local</caption>
+  <thead>
+    <tr>
+      <th>Width</th>
+      <th>Name</th>
+      <th>Result</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr data-ng-repeat="(width, score) in highScore.scores">
+      <th>{{width}}</th>
+      <th>Erik</th>
+      <th>{{score}}</th>
+    </tr>
+  </tbody>
+</table>
+
+<p data-ng-show="!highScore.hasScore()">No highscores yet</p>
