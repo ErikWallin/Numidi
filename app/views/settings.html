@@ -4,7 +4,7 @@
       <label class="control-label" for="select-width">Width</label>
       <div class="controls">
         <select id="select-width" data-ng-model="settings.width" data-ng-options="width for width in settings.widths" data-ng-change="board.resetGame()"></select>
-        <p data-ng-show="board.started" class="help-block">A change will reset current game</p>
+        <p data-ng-show="board.started && !board.win" class="help-block">A change will reset current game</p>
       </div>
     </div>
   </fieldset>
