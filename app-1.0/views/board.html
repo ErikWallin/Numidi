@@ -1,0 +1,34 @@
+<table class="numidi-grid">
+  <tr data-ng-repeat="row in board.grid">
+    <td data-ng-repeat="tile in row" data-ng-click="pickTile(tile)" data-ng-class="{selected: tile.picked, solved: tile.solved}">
+      {{tile.number}}
+    </td>
+  </tr>
+</table>
+
+<br>
+<button data-ng-click="board.newGame()" class="btn btn-primary">New game</button>
+<button data-ng-click="board.deal()" class="btn btn-primary" data-ng-class="{disabled: board.win || !board.started}">Deal</button>
+<br>
+<p data-ng-show="board.started && board.settings.showUsedTiles">Used tiles: {{board.score()}}</p>
+
+<script type="text/ng-template" id="name.html">
+  <div class="modal-header">
+      <h3>New highscore</h3>
+  </div>
+  <div class="modal-body">
+    <form class="form-horizontal">
+      <fieldset>
+        <div class="control-group">
+          <label class="control-label" for="input-name">Name</label>
+          <div class="controls">
+            <input type="text" id="input-name" data-ng-model="board.settings.name">
+          </div>
+        </div>
+      </fieldset>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-primary" data-ng-click="ok()">OK</button>
+  </div>
+</script>
