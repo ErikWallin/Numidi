@@ -7,5 +7,20 @@
         <p data-ng-show="board.started && !board.win" class="help-block">A change will reset current game</p>
       </div>
     </div>
+
+    <div class="control-group">
+      <div class="controls">
+        <label class="checkbox">
+          <input type="checkbox" data-ng-model="settings.showUsedTiles">Show used tiles
+        </label>
+      </div>
+    </div>
+
+    <div class="control-group">
+      <label class="control-label" for="input-name">Name</label>
+      <div class="controls">
+        <input type="text" id="input-name" data-ng-model="settings.name">
+      </div>
+    </div>
   </fieldset>
 </form>

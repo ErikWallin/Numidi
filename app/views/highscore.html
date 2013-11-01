@@ -1,17 +1,17 @@
 <table data-ng-show="highScore.hasScore()" class="table table-hover table-nonfluid">
-  <caption>Local</caption>
+  <caption>Local Storage</caption>
   <thead>
     <tr>
       <th>Width</th>
       <th>Name</th>
-      <th>Result</th>
+      <th>Score</th>
     </tr>
   </thead>
   <tbody>
-    <tr data-ng-repeat="(width, score) in highScore.scores">
+    <tr data-ng-repeat="(width, result) in highScore.results">
       <th>{{width}}</th>
-      <th>Erik</th>
-      <th>{{score}}</th>
+      <th>{{result.name}}</th>
+      <th>{{result.score}}</th>
     </tr>
   </tbody>
 </table>
