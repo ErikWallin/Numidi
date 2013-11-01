@@ -5,6 +5,7 @@ The word Numidi is an asian word those who play with numbers for a long time. Th
 
 Play
 ----
-* Release 0.1 (Plain AngularJS/Bootstrap project): <http://erikwallin.github.io/Numidi/app-0.1>
-* Release 0.2 (Yeoman, Bower, Grunt added): <http://erikwallin.github.io/Numidi/app-0.2>
-* Development (Refactor code to more controllers/services, Highscore feature): <http://erikwallin.github.io/Numidi/app-SNAPSHOT>
+* Release 0.1 (Plain AngularJS/Bootstrap project): <N/A>
+* Release 0.2 (Yeoman, Bower, Grunt added): <N/A>
+* Release 1.0 (Local storage highscore added): <http://erikwallin.github.io/Numidi/app-1.0>
+* Development (Refactor code to more controllers/services, experimantal highscore feature): <>
