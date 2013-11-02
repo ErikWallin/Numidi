@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('NumidiApp').service('highScoreService', function(localStorageService) {
+angular.module('NumidiApp').service('highScoreService', ['localStorageService', function(localStorageService) {
 
   var self = this;
   self.version = 1;
@@ -33,4 +33,4 @@ angular.module('NumidiApp').service('highScoreService', function(localStorageSer
       self.localStorage.set('highscore', self.results);
     }
   }
-});
+}]);

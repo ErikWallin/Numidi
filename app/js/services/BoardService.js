@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('NumidiApp').service('boardService', function(settingsService) {
+angular.module('NumidiApp').service('boardService', ['settingsService', function(settingsService) {
 
   var self = this;
 
@@ -166,4 +166,4 @@ angular.module('NumidiApp').service('boardService', function(settingsService) {
       }
     }
   }
-});
+}]);
