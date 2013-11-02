@@ -18,8 +18,18 @@ angular.module('NumidiApp').controller('BoardController', function ($scope, $mod
         templateUrl: 'name.html',
         backdrop: 'static',
         windowClass: 'modal',
-        scope: $scope,
-        controller: function ($scope, $modalInstance) {
+        resolve: {
+          settings: function() {
+            return $scope.settings;
+          },
+          highScore: function() {
+            return $scope.highScore;
+          }
+        },
+        controller: function ($scope, $modalInstance, settings, highScore) {
+          $scope.settings = settings;
+          $scope.highScore = highScore;
+          
           $scope.ok = function () {
             $scope.highScore.addResult(width, $scope.settings.name, score);
             $modalInstance.close($scope.settings.name);
