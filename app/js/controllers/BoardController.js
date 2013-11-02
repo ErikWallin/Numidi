@@ -15,16 +15,16 @@ angular.module('NumidiApp').controller('BoardController', function ($scope, $mod
 
     function addHighScore(width, score) {
       $modal.open({
-          templateUrl: 'name.html',
-          scope: $scope,
-          backdrop: 'static',
-          windowClass: 'modal',
-          controller: function ($scope, $modalInstance) {
-              $scope.ok = function () {
-                  $modalInstance.dismiss('ok');
-                  $scope.highScore.addResult(width, $scope.settings.name, score);
-              }
+        templateUrl: 'name.html',
+        backdrop: 'static',
+        windowClass: 'modal',
+        scope: $scope,
+        controller: function ($scope, $modalInstance) {
+          $scope.ok = function () {
+            $scope.highScore.addResult(width, $scope.settings.name, score);
+            $modalInstance.close($scope.settings.name);
           }
+        }
       });
     }
   }
