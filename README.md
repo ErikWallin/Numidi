@@ -7,5 +7,6 @@ Play
 ----
 * Release 0.1 (Plain AngularJS/Bootstrap project): N/A
 * Release 0.2 (Yeoman, Bower, Grunt added): N/A
-* Release 1.0 (Local storage highscore added): <http://erikwallin.github.io/Numidi/app-1.0>
+* Release 1.0 (Local storage highscore added): N/A
+* Release 1.1 (Social media interaction added): <http://erikwallin.github.io/Numidi/app-1.1>
 * Development (Refactor code to more controllers/services, experimantal highscore feature): N/A
