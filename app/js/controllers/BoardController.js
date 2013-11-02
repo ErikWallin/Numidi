@@ -19,23 +19,13 @@ angular.module('NumidiApp').controller('BoardController', ['$scope', '$modal', '
       templateUrl: 'name.html',
       backdrop: 'static',
       windowClass: 'modal',
-      resolve: {
-        settings: function() {
-          return $scope.settings;
-        },
-        highScore: function() {
-          return $scope.highScore;
-        }
-      },
-      controller: function ($scope, $modalInstance, settings, highScore) {
-        $scope.settings = settings;
-        $scope.highScore = highScore;
-        
+      scope: $scope,
+      controller: ['$scope', '$modalInstance', function ($scope, $modalInstance) {
         $scope.ok = function () {
           $scope.highScore.addResult(width, $scope.settings.name, score);
           $modalInstance.close($scope.settings.name);
         }
-      }
+      }]
     });
   }
 }]);
